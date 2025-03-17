@@ -1,11 +1,15 @@
 services:
   mongo:
-    image: mongo
+    image: mongo:8.0.5
+    container_name: mongodb
     # restart: always
     ports:
-      - 27017:27017
+      - 127.0.0.1:27017:27017
     volumes:
-      - '/var/data'
+      - mongo_volume:/var/data
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+
+volumes:
+  mongo_volume:
