@@ -1,0 +1,11 @@
+services:
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:25.0.0
+    container_name: cloudbeaver
+    ports:
+      - 127.0.0.1:8978:8978
+    volumes:
+      - cloudbeaver_volume:/opt/cloudbeaver/workspace
+
+volumes:
+  cloudbeaver_volume:
