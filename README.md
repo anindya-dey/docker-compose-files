@@ -4,7 +4,7 @@ Some handy docker compose files for local development
 ---
 
 ### CloudBeaver - [docker-compose.cloudbeaver.yaml](docker-compose.cloudbeaver.yaml)
-- Spins up a local web-based DBeaver called [CloudBeaver]()
+- Spins up a local web-based DBeaver called [CloudBeaver](https://github.com/dbeaver/cloudbeaver)
 - Use it to connect to sny supported DBs like MS SQL, PostgreSQL, etc.
 - Open http://localhost:8978 to access it.
 - Use the following credentials to set it up for the first time:
@@ -16,11 +16,15 @@ Some handy docker compose files for local development
   - Username:
   - Password:
 
+<br/>
+
 ---
 
 ### Apache Kafka - [docker-compose.kafka.yaml](docker-compose.kafka.yaml)
-- Spins up a local kafka cluster and a UI to access the cluster
+- Spins up a local kafka cluster (3 controllers and 3 brokers) and a UI to access the cluster
 - Open http://localhost:9090 to access the UI
+
+<br/>
 
 ---
 
@@ -29,9 +33,13 @@ Some handy docker compose files for local development
 - Install [mongosh](https://www.mongodb.com/try/download/shell) (CLI) or [MongoDB Compass](https://www.mongodb.com/try/download/compass) (GUI) to access it
 - Connection string: `mongodb://root:example@localhost:27017`
 - If `mongosh` is installed, then following is the way to connect to the database via CLI:
+
   ```sh
   mongosh -u root -p example
   ```
+
+<br/>
+
 ---
 
 ### MS SQL - [docker-compose.mssql.yaml](docker-compose.mssql.yaml)
@@ -42,6 +50,8 @@ Some handy docker compose files for local development
   - Port:
   - Username:
   - Password:
+
+<br/>
 
 ---
 
@@ -56,18 +66,36 @@ Some handy docker compose files for local development
   - Username: **admin**
   - Password: **postgres** (_do not forget to **toggle ON** "Save Password?"_)
 
+<br/>
+
 ---
 
 ### Redis - [docker-compose.redis.yaml](docker-compose.redis.yaml)
 - Spins up a local Redis server and an interactive UI (from redis-stack). More info [here](https://redis.io/docs/latest/operate/oss_and_stack/install/install-stack/docker/)
 - Open http://localhost:6378 to access the UI
 
+<br/>
+
 ---
 
 ### SQLPad - [docker-compose.sqlpad.yaml](docker-compose.sqlpad.yaml)
+- Spins up [SQLPad](https://getsqlpad.com/en/introduction/) - a web app for writing and running SQL queries and visualizing the results
+- Open http://localhost:4000 to access it
+- Use the following to login:
+  - Email: **admin@sqlpad.com**
+  - Password: **admin**
+
+<br/>
 
 ---
 
 ### ZooKeeper - [docker-compose.zookeeper.yaml](docker-compose.zookeeper.yaml)
+- Spins up three ZooKeeper nodes and a UI - ZooNavigator - to access those
+- Open http://localhost:9000 to access the UI
+- Use the following to connect:
+  - Connection String: **zoo1:2181,zoo2:2182,zoo3:2183** (_names of zookeeper nodes followed by their respective ports_)
+  - Leave the _Auth username_ and _Auth password_ blank
+
+<br/>
 
 ---
