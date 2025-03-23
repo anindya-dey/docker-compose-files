@@ -99,7 +99,7 @@ services:
     image: provectuslabs/kafka-ui:v0.7.2
     container_name: kafka-ui
     ports:
-      - 127.0.0.1:9090:8080
+      - 9090:8080
     environment:
       DYNAMIC_CONFIG_ENABLED: "true"
       KAFKA_CLUSTERS_0_NAME: cluster-1

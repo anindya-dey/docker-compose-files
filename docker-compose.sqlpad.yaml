@@ -6,7 +6,7 @@ services:
       SQLPAD_ADMIN: admin@sqlpad.com
       SQLPAD_ADMIN_PASSWORD: admin
     ports:
-      - 127.0.0.1:4000:3000
+      - 4000:3000
     volumes:
       - sqlpad_volume:/var/lib/sqlpad
 

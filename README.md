@@ -46,10 +46,10 @@ Some handy docker compose files for local development
 - Spins up a local MS SQL server
 - It will only work on **amd64** architecture (_NOT on MacBook M1, or any **arm**-based arch_)
 - Use the following to connect to it:
-  - Host:
-  - Port:
-  - Username:
-  - Password:
+  - Host: **mssql** (_name of the mssql docker container_)
+  - Port: **1433** (_default port of MS SQL server_)
+  - Username: **sa**
+  - Password: **Password@1**
 
 <br/>
 
