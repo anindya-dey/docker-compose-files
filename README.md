@@ -11,10 +11,10 @@ Some handy docker compose files for local development
   - Username: **cbadmin** (_default, change it if you want_)
   - Password: **Password@123**
 - MS SQL server can be connected using the following:
-  - Host:
-  - Port:
-  - Username:
-  - Password:
+  - Host: **mssql** (_name of the mssql docker container_)
+  - Port: **1433** (_default port of MS SQL server_)
+  - Username: **sa**
+  - Password: **Password@1**
 
 <br/>
 
@@ -98,4 +98,3 @@ Some handy docker compose files for local development
 
 <br/>
 
----
