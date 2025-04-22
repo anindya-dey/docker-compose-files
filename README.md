@@ -28,6 +28,15 @@ Some handy docker compose files for local development
 
 ---
 
+###  Firefly - [docker-compose.firefly.yaml](firefly/docker-compose.firefly.yaml)
+- Spins up Firefly along with Postgres DB
+- Firefly is a personal finance trackin system
+- Open http://localhost to access the UI
+
+<br/>
+
+---
+
 ### MongoDB - [docker-compose.mongodb.yaml](docker-compose.mongodb.yaml)
 - Spins up a local MongoDB database
 - Install [mongosh](https://www.mongodb.com/try/download/shell) (CLI) or [MongoDB Compass](https://www.mongodb.com/try/download/compass) (GUI) to access it
