@@ -3,23 +3,6 @@ Some handy docker compose files for local development
 
 ---
 
-### CloudBeaver - [docker-compose.cloudbeaver.yaml](docker-compose.cloudbeaver.yaml)
-- Spins up a local web-based DBeaver called [CloudBeaver](https://github.com/dbeaver/cloudbeaver)
-- Use it to connect to sny supported DBs like MS SQL, PostgreSQL, etc.
-- Open http://localhost:8978 to access it.
-- Use the following credentials to set it up for the first time:
-  - Username: **cbadmin** (_default, change it if you want_)
-  - Password: **Password@123**
-- MS SQL server can be connected using the following:
-  - Host: **mssql** (_name of the mssql docker container_)
-  - Port: **1433** (_default port of MS SQL server_)
-  - Username: **sa**
-  - Password: **Password@1**
-
-<br/>
-
----
-
 ### Apache Kafka - [docker-compose.kafka.yaml](docker-compose.kafka.yaml)
 - Spins up a local kafka cluster (3 controllers and 3 brokers) and a UI to access the cluster
 - Open http://localhost:9090 to access the UI
@@ -37,19 +20,6 @@ Some handy docker compose files for local development
   ```sh
   mongosh -u root -p example
   ```
-
-<br/>
-
----
-
-### MS SQL - [docker-compose.mssql.yaml](docker-compose.mssql.yaml)
-- Spins up a local MS SQL server
-- It will only work on **amd64** architecture (_NOT on MacBook M1, or any **arm**-based arch_)
-- Use the following to connect to it:
-  - Host: **mssql** (_name of the mssql docker container_)
-  - Port: **1433** (_default port of MS SQL server_)
-  - Username: **sa**
-  - Password: **Password@1**
 
 <br/>
 
@@ -73,17 +43,6 @@ Some handy docker compose files for local development
 ### Redis - [docker-compose.redis.yaml](docker-compose.redis.yaml)
 - Spins up a local Redis server and an interactive UI (from redis-stack). More info [here](https://redis.io/docs/latest/operate/oss_and_stack/install/install-stack/docker/)
 - Open http://localhost:6378 to access the UI
-
-<br/>
-
----
-
-### SQLPad - [docker-compose.sqlpad.yaml](docker-compose.sqlpad.yaml)
-- Spins up [SQLPad](https://getsqlpad.com/en/introduction/) - a web app for writing and running SQL queries and visualizing the results
-- Open http://localhost:4000 to access it
-- Use the following to login:
-  - Email: **admin@sqlpad.com**
-  - Password: **admin**
 
 <br/>
 

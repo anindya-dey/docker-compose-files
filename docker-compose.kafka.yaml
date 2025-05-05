@@ -1,6 +1,6 @@
 services:
   controller-1:
-    image: apache/kafka-native:3.9.0
+    image: apache/kafka-native:4.0.0
     container_name: kafka-controller-1
     environment:
       KAFKA_NODE_ID: 1
@@ -12,7 +12,7 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
 
   controller-2:
-    image: apache/kafka-native:3.9.0
+    image: apache/kafka-native:4.0.0
     container_name: kafka-controller-2
     environment:
       KAFKA_NODE_ID: 2
@@ -24,7 +24,7 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
 
   controller-3:
-    image: apache/kafka-native:3.9.0
+    image: apache/kafka-native:4.0.0
     container_name: kafka-controller-3
     environment:
       KAFKA_NODE_ID: 3
@@ -36,7 +36,7 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
 
   broker-1:
-    image: apache/kafka-native:3.9.0
+    image: apache/kafka-native:4.0.0
     container_name: kafka-broker-1
     ports:
       - 29092:9092
@@ -56,7 +56,7 @@ services:
       - controller-3
 
   broker-2:
-    image: apache/kafka-native:3.9.0
+    image: apache/kafka-native:4.0.0
     container_name: kafka-broker-2
     ports:
       - 39092:9092
@@ -76,7 +76,7 @@ services:
       - controller-3
 
   broker-3:
-    image: apache/kafka-native:3.9.0
+    image: apache/kafka-native:4.0.0
     container_name: kafka-broker-3
     ports:
       - 49092:9092
