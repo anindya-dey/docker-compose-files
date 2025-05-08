@@ -25,6 +25,22 @@ Some handy docker compose files for local development
 
 ---
 
+### Ollama - [ollama.docker-compose.yaml](resources/ollama.docker-compose.yaml)
+- Spins up Ollama service, along with OpenWebUI to access it from browser
+- After spinnin up, wait for a minute for the `open-webui` container to become **healthy**
+- Once `open-webui` is healthy, access the web interface at http://localhost:11435
+  - Click on `Get started ->`
+  - Enter Name, Email and Password for the admin user
+- After logging in, access `Admin Panel` from the `User Name` at the bottom of left-side panel
+- Go to `Settings` tab, and then to `Connections`
+- Click the `+` icon against `Manage Ollama API Connections`
+- Enter model name to download
+- Use the model in the chat window
+
+<br/>
+
+---
+
 ### PostgreSQL - [postgres.docker-compose.yaml](resources/postgres.docker-compose.yaml)
 - Spins up a local Postgres database and **pgAdmin4** (_UI to access the database_)
 - Open http://localhost:15432 to access **pgAdmin4**
