@@ -3,7 +3,7 @@ Some handy docker compose files for local development
 
 ---
 
-### Apache Kafka - [docker-compose.kafka.yaml](docker-compose.kafka.yaml)
+### Apache Kafka - [kafka.docker-compose.yaml](resources/kafka.docker-compose.yaml)
 - Spins up a local kafka cluster (3 controllers and 3 brokers) and a UI to access the cluster
 - Open http://localhost:9090 to access the UI
 
@@ -11,7 +11,7 @@ Some handy docker compose files for local development
 
 ---
 
-### MongoDB - [docker-compose.mongodb.yaml](docker-compose.mongodb.yaml)
+### MongoDB - [mongodb.docker-compose.yaml](resources/mongodb.docker-compose.yaml)
 - Spins up a local MongoDB database
 - Install [mongosh](https://www.mongodb.com/try/download/shell) (CLI) or [MongoDB Compass](https://www.mongodb.com/try/download/compass) (GUI) to access it
 - Connection string: `mongodb://root:example@localhost:27017`
@@ -25,7 +25,7 @@ Some handy docker compose files for local development
 
 ---
 
-### PostgreSQL - [docker-compose.postgres.yaml](docker-compose.postgres.yaml)
+### PostgreSQL - [postgres.docker-compose.yaml](resources/postgres.docker-compose.yaml)
 - Spins up a local Postgres database and **pgAdmin4** (_UI to access the database_)
 - Open http://localhost:15432 to access **pgAdmin4**
 - Login using `admin@pgadmin.com` as username and `password` as password
@@ -40,7 +40,7 @@ Some handy docker compose files for local development
 
 ---
 
-### Redis - [docker-compose.redis.yaml](docker-compose.redis.yaml)
+### Redis - [redis.docker-compose.yaml](resources/redis.docker-compose.yaml)
 - Spins up a local Redis server and an interactive UI (from redis-stack). More info [here](https://redis.io/docs/latest/operate/oss_and_stack/install/install-stack/docker/)
 - Open http://localhost:6378 to access the UI
 
@@ -48,7 +48,7 @@ Some handy docker compose files for local development
 
 ---
 
-### ZooKeeper - [docker-compose.zookeeper.yaml](docker-compose.zookeeper.yaml)
+### ZooKeeper - [zookeeper.docker-compose.yaml](resources/zookeeper.docker-compose.yaml)
 - Spins up three ZooKeeper nodes and a UI - ZooNavigator - to access those
 - Open http://localhost:9000 to access the UI
 - Use the following to connect:
