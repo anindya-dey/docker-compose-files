@@ -1,0 +1,12 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    volumes:
+      - vaultwarden_volume:/data
+    ports:
+      - "80:80"
+      - "443:443"
+
+volumes:
+  vaultwarden_volume:
