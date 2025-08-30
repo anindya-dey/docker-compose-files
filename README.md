@@ -64,6 +64,14 @@ Some handy docker compose files for local development
 
 ---
 
+### VaultWarden - [vaultwarden.docker-compose.yaml](resources/vaultwarden.docker-compose.yaml)
+- Spins up VaultWarden
+- Open http://localhost:80 to access the VaultWarden UI
+
+<br/>
+
+---
+
 ### ZooKeeper - [zookeeper.docker-compose.yaml](resources/zookeeper.docker-compose.yaml)
 - Spins up three ZooKeeper nodes and a UI - ZooNavigator - to access those
 - Open http://localhost:9000 to access the UI
@@ -72,4 +80,3 @@ Some handy docker compose files for local development
   - Leave the _Auth username_ and _Auth password_ blank
 
 <br/>
-
