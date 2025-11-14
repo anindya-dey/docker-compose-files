@@ -1,0 +1,15 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:1.32.5
+    container_name: vaultwarden-server
+    restart: unless-stopped
+    volumes:
+      - vaultwarden-data:/data
+    ports:
+      - "8081:80"
+    environment:
+      - WEBSOCKET_ENABLED=true
+      - SIGNUPS_ALLOWED=false
+
+volumes:
+  vaultwarden-data:

@@ -1,0 +1,25 @@
+services:
+  stirling-pdf:
+    image: docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest
+    container_name: stirling-pdf
+    restart: unless-stopped
+    ports:
+      - '4000:8080'
+    volumes:
+      - stirling_training_data:/usr/share/tessdata # Required for extra OCR languages
+      - stirling_configs:/configs
+      - stirling_custom_files:/customFiles/
+      - stirling_logs:/logs/
+      - stirling_pipeline:/pipeline/
+    environment:
+      - DISABLE_ADDITIONAL_FEATURES=false
+      - LANGS=en_GB
+      - SECURITY_ENABLELOGIN=false
+      - SYSTEM_DEFAULTLOCALE=en-GB
+
+volumes:
+  stirling_training_data:
+  stirling_configs:
+  stirling_custom_files:
+  stirling_logs:
+  stirling_pipeline:
