@@ -1,0 +1,41 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:1.32.5
+    container_name: vaultwarden-server
+    restart: unless-stopped
+    volumes:
+      - vaultwarden-data:/data
+    ports:
+      - "8081:80"
+    environment:
+      - WEBSOCKET_ENABLED=true
+      - SIGNUPS_ALLOWED=false
+    networks:
+      - vaultwarden_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/alive"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  vaultwarden-data:
+
+networks:
+  vaultwarden_network:
+    driver: bridge
+    name: vaultwarden_network

@@ -1,0 +1,39 @@
+services:
+  redis:
+    image: redis/redis-stack:7.4.0-v8
+    container_name: redis-stack
+    restart: unless-stopped
+    ports:
+      - 6378:8001 # connects to UI
+      - 6379:6379
+    volumes:
+      - redis_volume:/data
+    networks:
+      - redis_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  redis_volume:
+
+networks:
+  redis_network:
+    driver: bridge
+    name: redis_network

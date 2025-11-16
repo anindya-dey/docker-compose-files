@@ -16,6 +16,27 @@ services:
       - LANGS=en_GB
       - SECURITY_ENABLELOGIN=false
       - SYSTEM_DEFAULTLOCALE=en-GB
+    networks:
+      - stirling_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '1.0'
+          memory: 1G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 volumes:
   stirling_training_data:
@@ -23,3 +44,8 @@ volumes:
   stirling_custom_files:
   stirling_logs:
   stirling_pipeline:
+
+networks:
+  stirling_network:
+    driver: bridge
+    name: stirling_network
