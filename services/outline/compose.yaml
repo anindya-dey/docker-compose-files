@@ -1,10 +1,12 @@
+# Ports: 3180-3182 (Web: 3180, Redis: 3181, PostgreSQL: 3182)
+
 services:
   outline:
     image: docker.getoutline.com/outlinewiki/outline:1.0.1
     container_name: outline-wiki
     restart: unless-stopped
     ports:
-      - "3100:3000"
+      - "3180:3000"
     volumes:
       - outline-data:/var/lib/outline/data
     env_file:
@@ -37,7 +39,7 @@ services:
         condition: service_healthy
 
   redis:
-    image: redis:7-alpine
+    image: redis:8.4-rc1-alpine
     container_name: outline-redis
     restart: unless-stopped
     ports:
@@ -72,7 +74,7 @@ services:
     container_name: outline-postgres
     restart: unless-stopped
     ports:
-      - "5433:5432"
+      - "3182:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
     env_file:

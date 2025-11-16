@@ -1,10 +1,12 @@
+# Ports: 3120 (Database: 3120)
+
 services:
   mongo:
     image: mongo:8.0.17
     container_name: mongodb-server
     restart: unless-stopped
     ports:
-      - "27017:27017"
+      - "3120:27017"
     volumes:
       - mongo-data:/data/db
     env_file:

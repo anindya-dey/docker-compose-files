@@ -1,0 +1,33 @@
+global:
+  resolve_timeout: 5m
+
+# Default route
+route:
+  group_by: ['alertname', 'cluster', 'service']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 12h
+  receiver: 'default-receiver'
+
+# Receivers define notification integrations
+receivers:
+  - name: 'default-receiver'
+    # Configure your notification channels here
+    # Examples:
+    # - Email
+    # - Slack
+    # - PagerDuty
+    # - Webhook
+    
+    # Example webhook configuration:
+    # webhook_configs:
+    #   - url: 'http://example.com/webhook'
+    #     send_resolved: true
+
+# Inhibition rules allow to mute a set of alerts given that another alert is firing
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'cluster', 'service']

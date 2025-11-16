@@ -1,0 +1,85 @@
+# Ports: 3200-3203 (Broker: 3200, Admin: 3201, Manager: 3202-3203)
+
+services:
+  pulsar:
+    image: apachepulsar/pulsar:3.3.7
+    container_name: pulsar
+    restart: unless-stopped
+    command: bin/pulsar standalone
+    ports:
+      - "3200:6650"
+      - "3201:8080"
+    volumes:
+      - pulsar-data:/pulsar/data
+    environment:
+      - PULSAR_MEM=-Xms512m -Xmx512m -XX:MaxDirectMemorySize=256m
+    networks:
+      - pulsar_network
+    healthcheck:
+      test: ["CMD", "bin/pulsar-admin", "brokers", "healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  pulsar-manager:
+    image: apachepulsar/pulsar-manager:v0.4.0
+    container_name: pulsar-manager
+    restart: unless-stopped
+    ports:
+      - "3202:9527"
+      - "3203:7750"
+    environment:
+      - REDIRECT_HOST=http://localhost
+      - REDIRECT_PORT=9527
+      - DRIVER_CLASS_NAME=org.postgresql.Driver
+      - URL=jdbc:postgresql://127.0.0.1:5432/pulsar_manager
+      - USERNAME=pulsar
+      - PASSWORD=pulsar
+      - LOG_LEVEL=INFO
+    networks:
+      - pulsar_network
+    depends_on:
+      pulsar:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7750/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  pulsar_network:
+    driver: bridge
+    name: pulsar_network
+
+volumes:
+  pulsar-data:
+    driver: local

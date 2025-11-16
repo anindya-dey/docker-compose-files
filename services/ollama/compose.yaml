@@ -1,10 +1,12 @@
+# Ports: 3170-3171 (API: 3170, WebUI: 3171)
+
 services:
   ollama:
     image: ollama/ollama:0.12.3
     container_name: ollama
     restart: unless-stopped
     ports:
-      - "11434:11434"
+      - "3170:11434"
     volumes:
       - ollama-data:/root/.ollama
     environment:
@@ -36,7 +38,7 @@ services:
     container_name: open-webui
     restart: unless-stopped
     ports:
-      - "11435:8080"
+      - "3171:8080"
     volumes:
       - open-webui-data:/app/backend/data
     environment:

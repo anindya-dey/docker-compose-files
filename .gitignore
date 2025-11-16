@@ -21,3 +21,9 @@ Thumbs.db
 # Backup files
 *.bak
 *.backup
+
+# Airflow folders
+**/airflow/dags
+**/airflow/logs
+**/airflow/config
+**/airflow/plugins

@@ -1,246 +1,102 @@
-# 🐳 Docker Compose Files 📁
+# Docker Compose Services
 
-A collection of production-ready Docker Compose configurations for local development, featuring the latest stable versions, comprehensive health checks, resource management, and security best practices.
+Self-hosted services for local development and learning. All services include health checks, resource limits, and follow best practices.
 
-## ✨ Recent Improvements (2024-21-09)
+## Port Allocation
 
-🔄 **All services updated to latest stable versions**  
-🏥 **Health checks added to all services**  
-📊 **Resource limits and reservations configured**  
-🔐 **Security improvements with environment files**  
-🔁 **Restart policies standardized**  
-📁 **Volume management optimized**  
+All services use standardized ports in the 3000-3289 range to avoid conflicts:
 
----
+| Service | Ports | Access |
+|---------|-------|--------|
+| **Airflow** | 3010-3011 | Web: 3010, Flower: 3011 |
+| **Authentik** | 3020-3021 | HTTP: 3020, HTTPS: 3021 |
+| **ELK Stack** | 3030-3036 | Kibana: 3030, ES: 3031-3032, Logstash: 3033-3036 |
+| **Gitea** | 3050-3051 | Web: 3050, SSH: 3051 |
+| **InfluxDB** | 3060-3061 | InfluxDB: 3060, Grafana: 3061 |
+| **Jenkins** | 3070-3071 | Web: 3070, Agent: 3071 |
+| **Kafka** | 3080-3083 | Brokers: 3080-3082, UI: 3083 |
+| **Kong** | 3100-3104 | Proxy: 3100, Admin: 3101-3102, HTTPS: 3103-3104 |
+| **MinIO** | 3110-3111 | API: 3110, Console: 3111 |
+| **MongoDB** | 3120 | Database: 3120 |
+| **Monitoring** | 3130-3133 | Grafana: 3130, Prometheus: 3131, AlertManager: 3132, Node Exporter: 3133 |
+| **n8n** | 3150 | Web: 3150 |
+| **Neo4j** | 3160-3161 | Browser: 3160, Bolt: 3161 |
+| **Ollama** | 3170-3171 | API: 3170, WebUI: 3171 |
+| **Outline** | 3180-3182 | Web: 3180, Redis: 3181, PostgreSQL: 3182 |
+| **PostgreSQL** | 3190-3191 | Database: 3190, pgAdmin: 3191 |
+| **Pulsar** | 3200-3203 | Broker: 3200, Admin: 3201, Manager: 3202-3203 |
+| **RabbitMQ** | 3210-3211 | AMQP: 3210, Management: 3211 |
+| **Redis** | 3220-3221 | Database: 3220, Insight: 3221 |
+| **SonarQube** | 3230 | Web: 3230 |
+| **Stirling PDF** | 3240 | Web: 3240 |
+| **Vault** | 3250 | Web: 3250 |
+| **VaultWarden** | 3260 | Web: 3260 |
+| **ZooKeeper** | 3270-3273 | Nodes: 3270-3272, Navigator: 3273 |
 
-## 🚀 Quick Start Guide
+## Quick Start
 
-### Using Makefile (Recommended)
+```bash
+# List all services
+make list
 
-1. **Clone the repository**:
-   ```bash
-   git clone <repo-url> && cd docker-compose-files
-   ```
+# Start a service
+make up SERVICE=postgres
 
-2. **View available services**:
-   ```bash
-   make list
-   ```
+# View logs
+make logs SERVICE=postgres
 
-3. **Start a service**:
-   ```bash
-   make up SERVICE=postgres
-   # or
-   make up SERVICE=kafka
-   ```
-
-4. **View logs**:
-   ```bash
-   make logs SERVICE=postgres
-   ```
-
-5. **Stop a service**:
-   ```bash
-   make down SERVICE=postgres
-   ```
-
-### Manual Usage
-
-1. **Navigate to service directory**:
-   ```bash
-   cd services/postgres
-   ```
-
-2. **Configure environment** (if needed):
-   ```bash
-   cp .env.example .env
-   nano .env  # Edit with your credentials
-   ```
-
-3. **Start the service**:
-   ```bash
-   docker compose up -d
-   ```
-
-4. **Check the service-specific README**:
-   ```bash
-   cat README.md
-   ```
-
----
-
-## 📂 Project Structure
-
-```
-docker-compose-files/
-├── Makefile                    # Easy service management
-├── README.md                   # This file
-├── IMPROVEMENTS.md             # Detailed improvement recommendations
-├── SERVICES_TO_ADD.md         # List of services to add
-└── services/
-    ├── kafka/
-    │   ├── compose.yaml
-    │   └── README.md
-    ├── mongodb/
-    │   ├── compose.yaml
-    │   ├── .env.example
-    │   └── README.md
-    ├── ollama/
-    │   ├── compose.yaml
-    │   └── README.md
-    ├── outline/
-    │   ├── compose.yaml
-    │   ├── .env.example
-    │   └── README.md
-    ├── postgres/
-    │   ├── compose.yaml
-    │   ├── .env.example
-    │   └── README.md
-    ├── redis/
-    │   ├── compose.yaml
-    │   └── README.md
-    ├── stirling-pdf/
-    │   ├── compose.yaml
-    │   └── README.md
-    ├── vaultwarden/
-    │   ├── compose.yaml
-    │   └── README.md
-    └── zookeeper/
-        ├── compose.yaml
-        └── README.md
+# Stop a service
+make down SERVICE=postgres
 ```
 
----
+## Available Services
 
-## 🛠️ Makefile Commands
+### Databases
+- **[PostgreSQL](services/postgres)** - Relational database with pgAdmin (3190-3191)
+- **[MongoDB](services/mongodb)** - Document database (3120)
+- **[Redis](services/redis)** - In-memory cache with RedisInsight (3220-3221)
+- **[InfluxDB](services/influxdb)** - Time-series database with Grafana (3060-3061)
+- **[Neo4j](services/neo4j)** - Graph database (3160-3161)
 
-| Command | Description | Example |
-|---------|-------------|---------|
-| `make help` | Show all available commands | `make help` |
-| `make list` | List all available services | `make list` |
-| `make up SERVICE=<name>` | Start a service | `make up SERVICE=postgres` |
-| `make down SERVICE=<name>` | Stop a service | `make down SERVICE=redis` |
-| `make restart SERVICE=<name>` | Restart a service | `make restart SERVICE=kafka` |
-| `make logs SERVICE=<name>` | View service logs | `make logs SERVICE=mongodb` |
-| `make ps SERVICE=<name>` | Show service status | `make ps SERVICE=ollama` |
-| `make clean SERVICE=<name>` | Stop and remove volumes | `make clean SERVICE=postgres` |
+### Messaging & Streaming
+- **[Kafka](services/kafka)** - Event streaming with Kafka UI (3080-3083)
+- **[RabbitMQ](services/rabbitmq)** - Message broker (3210-3211)
+- **[Apache Pulsar](services/pulsar)** - Modern messaging platform (3200-3203)
+- **[ZooKeeper](services/zookeeper)** - Coordination service with ZooNavigator (3270-3273)
 
----
+### Monitoring & Logging
+- **[Prometheus + Grafana](services/monitoring)** - Metrics and dashboards (3130-3133)
+- **[ELK Stack](services/elk)** - Elasticsearch, Logstash, Kibana (3030-3036)
 
-### Apache Kafka - [services/kafka](services/kafka) 🔄 **Kafka UI Updated to v0.7.2**
-- **Full KRaft cluster**: 3 controllers + 3 brokers with **Kafka UI 0.7.2**
-- **Brokers**: localhost:29092, 39092, 49092
-- **Kafka UI**: http://localhost:9090 (with health checks and resource limits)
-- **Architecture**: Apache Kafka 4.1.1 with KRaft mode (no ZooKeeper dependency)
-- 📖 [Detailed README](services/kafka/README.md)
+### Security & Identity
+- **[Authentik](services/authentik)** - Identity provider (3020-3021)
+- **[HashiCorp Vault](services/vault)** - Secrets management (3250)
+- **[VaultWarden](services/vaultwarden)** - Password manager (3260)
 
-<br/>
+### DevOps & CI/CD
+- **[Jenkins](services/jenkins)** - Automation server (3070-3071)
+- **[Airflow](services/airflow)** - Workflow orchestration (3010-3011)
+- **[Gitea](services/gitea)** - Git service (3050-3051)
+- **[SonarQube](services/sonarqube)** - Code quality (3230)
 
----
+### API & Gateway
+- **[Kong](services/kong)** - API Gateway (3100-3104)
+- **[MinIO](services/minio)** - S3-compatible storage (3110-3111)
 
-### MongoDB - [services/mongodb](services/mongodb) 🔄 **Updated to v8.0.17**
-- **Latest MongoDB 8.0.17** with health checks and proper volume configuration
-- **Credentials**: Moved to `.env` file for better security
-- **Connection string**: `mongodb://admin:password@localhost:27017` (configurable in .env)
-- **Tools**: Install [mongosh](https://www.mongodb.com/try/download/shell) (CLI) or [MongoDB Compass](https://www.mongodb.com/try/download/compass) (GUI)
-- 📖 [Detailed README](services/mongodb/README.md)
-- **CLI connection**:
-  ```sh
-  mongosh -u admin -p password
-  ```
+### Applications
+- **[n8n](services/n8n)** - Workflow automation (3150)
+- **[Outline](services/outline)** - Team wiki (3180-3182)
+- **[Stirling PDF](services/stirling-pdf)** - PDF tools (3240)
+- **[Ollama](services/ollama)** - Local AI with Open WebUI (3170-3171)
 
-<br/>
+## Commands
 
----
-
-### Ollama - [services/ollama](services/ollama) 🔄 **Updated versions**
-- **Ollama 0.12.3** + **Open WebUI v0.6.32** with health checks and resource management
-- **GPU Support**: NVIDIA GPU acceleration configured
-- **Ollama API**: http://localhost:11434
-- **Web Interface**: http://localhost:11435
-- 📖 [Detailed README](services/ollama/README.md)
-- **Setup**:
-  1. Wait for containers to become **healthy**
-  2. Access web interface → "Get started"
-  3. Create admin user (Name, Email, Password)
-  4. Admin Panel → Settings → Connections → Add models
-  5. Download models and start chatting
-
-<br/>
-
----
-
-### PostgreSQL - [services/postgres](services/postgres) 🔄 **Updated to v17.6**
-- **Latest PostgreSQL 17.6** with **PgAdmin 9.9** and health checks
-- **Credentials**: Now in `.env` file for better security
-- Open http://localhost:15432 to access **pgAdmin4**
-- 📖 [Detailed README](services/postgres/README.md)
-- **Default login**: `admin@example.com` / `password` (change in .env)
-- **Database connection**:
-  - Host: **postgres** (container name)
-  - Port: **5432**
-  - Username: **postgres** (configurable in .env)
-  - Password: **password** (configurable in .env)
-
-<br/>
-
----
-
-### Redis - [services/redis](services/redis) 🔄 **Updated to v7.4.0-v8**
-- **Latest Redis Stack 7.4.0-v8** with health checks and resource management
-- **Redis server**: localhost:6379
-- **RedisInsight UI**: http://localhost:6378
-- 📖 [Detailed README](services/redis/README.md)
-- More info: [Redis Stack Docker](https://redis.io/docs/latest/operate/oss_and_stack/install/install-stack/docker/)
-
-<br/>
-
----
-
-### VaultWarden - [services/vaultwarden](services/vaultwarden) 🔄 **Updated to v1.32.5**
-- **Pinned version 1.32.5** for stability with health checks
-- **Port**: 8081 (HTTP)
-- **Security**: Signups disabled by default, admin token required
-- 📖 [Detailed README](services/vaultwarden/README.md)
-- Open http://localhost:8081 to access VaultWarden
-
-<br/>
-
----
-
-### ZooKeeper - [services/zookeeper](services/zookeeper) 🔄 **Updated to v3.9.4**
-- **Latest ZooKeeper 3.9.4** with **ZooNavigator 1.1.4** and health checks
-- **Three-node cluster** with persistent volumes and resource limits
-- 📖 [Detailed README](services/zookeeper/README.md)
-- Open http://localhost:9000 to access **ZooNavigator UI**
-- **Connection**: 
-  - String: **zoo1:2181,zoo2:2181,zoo3:2181**
-  - Auth: Leave blank for local development
-
-<br/>
-
----
-
-### Outline Wiki - [services/outline](services/outline) 🔄 **Updated to v1.0.1**
-- **Outline 1.0.1** - Modern team knowledge base and wiki
-- **Stack**: Outline + PostgreSQL 17 + Redis 7
-- **Port**: 3100 (web interface)
-- 📖 [Detailed README](services/outline/README.md)
-- **Requires**: OAuth configuration for authentication
-- Access: http://localhost:3100
-
-<br/>
-
----
-
-### Stirling PDF - [services/stirling-pdf](services/stirling-pdf)
-- **Latest Stirling PDF** - Powerful locally hosted PDF manipulation
-- **Features**: Convert, merge, split, OCR, compress, sign PDFs
-- **Port**: 4000
-- 📖 [Detailed README](services/stirling-pdf/README.md)
-- **Privacy**: All processing done locally
-- Access: http://localhost:4000
-
-<br/>
-
----
+| Command | Description |
+|---------|-------------|
+| `make list` | List all services |
+| `make up SERVICE=name` | Start service |
+| `make down SERVICE=name` | Stop service |
+| `make restart SERVICE=name` | Restart service |
+| `make logs SERVICE=name` | View logs |
+| `make ps SERVICE=name` | Show status |
+| `make clean SERVICE=name` | Remove volumes |

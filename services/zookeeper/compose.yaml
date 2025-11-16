@@ -1,10 +1,12 @@
+# Ports: 3270-3273 (Nodes: 3270-3272, Navigator: 3273)
+
 services:
   zoo1:
     image: zookeeper:3.9.4
     container_name: zoo1
     restart: unless-stopped
     ports:
-      - 2181:2181
+      - 3270:2181
     environment:
       ZOO_MY_ID: 1
       ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
@@ -37,7 +39,7 @@ services:
     container_name: zoo2
     restart: unless-stopped
     ports:
-      - 2182:2181
+      - 3271:2181
     environment:
       ZOO_MY_ID: 2
       ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
@@ -70,7 +72,7 @@ services:
     container_name: zoo3
     restart: unless-stopped
     ports:
-      - 2183:2181
+      - 3272:2181
     environment:
       ZOO_MY_ID: 3
       ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
@@ -103,7 +105,7 @@ services:
     container_name: zoo-navigator
     restart: unless-stopped
     ports:
-      - 9000:9000
+      - 3273:9000
     networks:
       - zookeeper_network
     healthcheck:

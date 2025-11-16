@@ -1,11 +1,13 @@
+# Ports: 3220-3221 (Database: 3220, Insight: 3221)
+
 services:
   redis:
     image: redis/redis-stack:7.4.0-v8
     container_name: redis-stack
     restart: unless-stopped
     ports:
-      - 6378:8001 # connects to UI
-      - 6379:6379
+      - 3221:8001 # connects to UI
+      - 3220:6379
     volumes:
       - redis_volume:/data
     networks:

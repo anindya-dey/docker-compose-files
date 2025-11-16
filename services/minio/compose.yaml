@@ -1,0 +1,46 @@
+# Ports: 3110-3111 (API: 3110, Console: 3111)
+
+services:
+  minio:
+    image: minio/minio:RELEASE.2025-11-01T19-03-19Z
+    container_name: minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    ports:
+      - "3110:9000"
+      - "3111:9001"
+    volumes:
+      - minio-data:/data
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    networks:
+      - minio_network
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  minio_network:
+    driver: bridge
+    name: minio_network
+
+volumes:
+  minio-data:
+    driver: local

@@ -1,0 +1,45 @@
+# Ports: 3070-3071 (Web: 3070, Agent: 3071)
+
+services:
+  jenkins:
+    image: jenkins/jenkins:2.528.2-jdk21
+    container_name: jenkins
+    restart: unless-stopped
+    ports:
+      - "3070:8080"
+      - "3071:50000"
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+    networks:
+      - jenkins_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/login"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 90s
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '1.0'
+          memory: 1G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  jenkins_network:
+    driver: bridge
+    name: jenkins_network
+
+volumes:
+  jenkins-data:
+    driver: local

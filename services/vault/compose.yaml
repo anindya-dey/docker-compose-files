@@ -1,0 +1,50 @@
+# Ports: 3250 (Web: 3250)
+
+services:
+  vault:
+    image: hashicorp/vault:1.19.2
+    container_name: vault
+    restart: unless-stopped
+    command: server -dev -dev-listen-address=0.0.0.0:8200
+    ports:
+      - "3250:8200"
+    volumes:
+      - vault-file:/vault/file
+      - vault-logs:/vault/logs
+    environment:
+      - VAULT_ADDR=http://0.0.0.0:8200
+      - VAULT_DEV_ROOT_TOKEN_ID=myroot
+    cap_add:
+      - IPC_LOCK
+    networks:
+      - vault_network
+    healthcheck:
+      test: ["CMD", "vault", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  vault_network:
+    driver: bridge
+    name: vault_network
+
+volumes:
+  vault-file:
+    driver: local
+  vault-logs:
+    driver: local

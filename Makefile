@@ -13,16 +13,7 @@ help:
 	@echo "  make ps <service>            - Show service status"
 	@echo "  make clean <service>         - Stop service and remove volumes"
 	@echo ""
-	@echo "Available services:"
-	@echo "  - kafka"
-	@echo "  - mongodb"
-	@echo "  - ollama"
-	@echo "  - outline"
-	@echo "  - postgres"
-	@echo "  - redis"
-	@echo "  - stirling-pdf"
-	@echo "  - vaultwarden"
-	@echo "  - zookeeper"
+	@$(MAKE) --no-print-directory list
 	@echo ""
 	@echo "Examples:"
 	@echo "  make up postgres"
@@ -31,7 +22,7 @@ help:
 
 list:
 	@echo "Available services:"
-	@ls -1 services/ | grep -v ".md"
+	@ls -1 services/ | grep -v ".md" | sed 's/^/  /'
 
 up:
 	@if [ -z "$(SERVICE)" ] && [ -z "$(filter-out $@,$(MAKECMDGOALS))" ]; then \
